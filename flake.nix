@@ -16,7 +16,7 @@
       default = pkgs.releaseTools.aggregate {
         name = "mgit-nixos-pkgs";
 
-        constituents = mapAttrsToList (pkg: _: pkgs.${pkgs}) folder;
+        constituents = mapAttrsToList (pkg: _: pkgs.${pkg}) folder;
       };
     } // (mapAttrs (pkg: _: pkgs.${pkg}) folder);
 
