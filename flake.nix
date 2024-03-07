@@ -31,6 +31,7 @@
         default = [
           flake2channel
           nixSettings
+          defaults
         ];
       });
   };
