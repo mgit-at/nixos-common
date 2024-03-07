@@ -1,4 +1,4 @@
-{ options, config }:  mkIf (config.services.nginx.enable) {
+{ options, config, lib, ... }: with lib; mkIf (config.services.nginx.enable) {
   services.nginx = {
     enableReload = true;
     recommendedBrotliSettings = true;
