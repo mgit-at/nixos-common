@@ -11,7 +11,7 @@ import ./defaults/_with_unify.nix args true
   nix.gc.options = "--delete-older-than 14d";
 }
 {
-  nixUnify = {
+  nix-unify = {
     modules.shareSystemd.units = [ "nix-gc.timer" ];
   };
 }
