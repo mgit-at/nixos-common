@@ -1,4 +1,6 @@
-{ options, config, lib, ... }: with lib; mkIf (config.services.nginx.enable) {
+{ options, config, lib, ... }@args:
+import ./_with_unify.nix args config.services.nginx.enable
+{
   services.nginx = {
     enableReload = true;
     recommendedBrotliSettings = true;
@@ -8,8 +10,9 @@
     recommendedTlsSettings = true;
     recommendedZstdSettings = true;
   };
-
-  nix-unify = mkIf (options ? "nix-unify") {
+}
+{
+  nix-unify = {
     modules.shareSystemd.units = [ "nginx.service" ];
     files.etc."nginx" = {};
   };
