@@ -38,6 +38,7 @@
           flake2channel
           nixSettings
           defaults
+          ethtool-setringmax
         ];
       });
 

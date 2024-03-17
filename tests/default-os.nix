@@ -13,5 +13,6 @@ inputs: mod: { pkgs, lib, ... }:
   testScript = ''
     start_all()
     server.execute("true")
+    server.wait_for_unit("ethtool-setringmax")
   '';
 }
