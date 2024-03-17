@@ -12,6 +12,6 @@ import ./defaults/_with_unify.nix args true
 }
 {
   nix-unify = {
-    modules.shareSystemd.units = [ "nix-gc.timer" ];
+    modules.shareSystemd.units = [ "nix-gc.timer" "nix-gc.service" ];
   };
 }
