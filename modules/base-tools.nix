@@ -29,6 +29,6 @@
     rng-tools
     acl
     ripgrep
-    # fd-find ??
+    fd
   ];
 }
