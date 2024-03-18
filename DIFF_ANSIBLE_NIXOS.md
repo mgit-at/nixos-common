@@ -16,7 +16,7 @@ Wheras in ansible you would write this to install `htop`...
     state: present
 ```
 
-...and then this to remove htop
+...and then this to remove htop...
 
 ```yaml
 - name: Install htop                   
@@ -50,11 +50,22 @@ In nixos you write...
 
 In ansible you call a role with arguments, which then executes a bunch of tasks
 
+```yaml
+---
+- name: install and configure server
+  hosts:
+    - my-server
+  roles:
+    - role: mgit_at.roles.base
+      base_ssh_permit_root_login: "no"
+```
+
 This would roughly translate 1:1 to this in nixos:
 
 ```nix
 {
   imports = [
+    # returns config
     (import base.nix {
        # overrides
        base_ssh_permit_root_login = "no"; 
