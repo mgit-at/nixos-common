@@ -46,32 +46,6 @@ In nixos you write...
 
 ...and then build and deploy a system flake using `nixos-rebuild switch --flake .#my-host --target-host root@my-target-host`
 
-# Why nixos and not ansible?
-
-As you've seen in the above example:
-- ansible assumes a pristine base state.
-
-  Say ubuntu ships with different default packages and hetzner ubuntu also ships with differente default packages, and you try to install yet another package, that conflicts with one default packages, that you didn't even know about.
-
-  This will fail and ansible will be none the wiser.
-  It can be accounted for, but that's extra code.
-
-  In nixos you have a clear overview of all the defaults and you can get rid of them easily.
-- ansible doesn't have a removal routine "built-in" and leaves leftover state.
-  While it's true that nixos doesn't either, removing something from the configuration in nixos also gets rid of it on the host, which is basically the same thing.
-
-  On ansible everything stays, unless explicitly removed, thus collecting sources of undefined behaviour like: hosts deployed with role X before date Y will have leftover package Z and it's config, which will then need to be accounted for if version 2 of package Z will be installed)
-
-
-- nixos has a "no pfusch" attitude
-
-  You can't just do a quick hack that's not going via the git repo.
-  You will at the very least need to edit the configuration, as /etc is fully read-only (with a few notable exceptions, like dynamically added users).
-
-  (Yes, it's possible to make things in /etc be symlinks to read-write files, if necesarry. But it's frowned upon for good reasons.)
-
-  If you do need to test something and don't want to deal with the trouble of packaging it just to test if it's even a good idea to spend more time with it, there's [incus](https://linuxcontainers.org/incus/docs/main/tutorial/first_steps/#launch-and-inspect-instances), available on nixos via `virtualisation.incus.enable = true; networking.firewall.trustedInterfaces = [ "incusbr*" ];`
-
 # Roles vs modules and option priorities
 
 In ansible you call a role with arguments, which then executes a bunch of tasks
@@ -130,3 +104,58 @@ This will not fail, since the other value has the priority `default` (as in "an 
 Note that overriding `PubkeyAuthentication` will fail, as two values will be present with `normal` priority (which is what we want. it can still be overriden using `mkForce`, but then it's clear that we intend that to be a bad idea)
 
 (In practice the `nixos-common` repo has `modules/defaults/$service.nix` which define defaults per service)
+
+# Why nixos and not ansible?
+
+- "roles" (modules) and packages are a shared community-effort, instead of a single-person effort
+
+  In NixOS all modules and packages reside in nixpkgs and anyone can contribute anywhere, with certain quality expectations by default. No longer do you need to search github for the perfect nginx role, when you can just use search.nixos.org to get the options for [`services.nginx`](https://search.nixos.org/options#?channel=unstable&from=0&size=50&sort=alpha_asc&type=packages&query=services.nginx.virtualHosts)
+
+- nixos has a "no pfusch" attitude
+
+  You can't just do a quick hack that's not going to be documented in the repo.
+  You will at the very least need to edit the configuration and deploy, as /etc is fully read-only.
+
+  (Yes, it's possible to make things in /etc be symlinks to read-write files, if necesarry. But it's frowned upon for good reasons.)
+
+- ansible assumes a pristine base state.
+
+  Installed something for testing but forgot to remove it, but only on some hosts? Prepare for surprise.
+
+  Other hosting provider shipping differente defaults for the same distro, that you need to figure out and potentially clean up or even re-install the os? Not with nixos.
+
+- nixos has profiles for common environments, that get maintained for you
+
+  If you have, for example, a qemu guest you can include `imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];` and you will automatically profit from improvments done to the qemu profile, instead of having to re-install or manually "backport" the changes to the defaults that were done.
+
+  Otherwise ocasionally running `nixos-generate-config` will also give you an updated hardware configuration, with any new features.
+
+- In nixos, if it's gone from the configuration it's gone from the os.
+
+  No longer do you need to write cleanup routines or re-install.
+
+  Notable exception: State in /var/lib, as that is managed by the application and not the os.
+
+- Major version upgrades are possible without having to pray that the server will come online once again
+
+  You can just use `nixos-rebuild boot ...` to deploy a configuration on reboot and have the server boot the config.
+
+- You can test if your module/deployment works, with minimal effort.
+
+  Look in this repo's `test/` folder for examples. If you aren't convinced take a look at nixpkgs's `nixos/tests/`
+
+- `ansible is a hack` - gebi
+
+# Pitfalls of nixos
+
+- quickly testing something that hasn't been packaged yet is usually not (easily) possible
+
+  You can run other operating systems as full-os containers with minimal overhead using [incus](https://linuxcontainers.org/incus/docs/main/tutorial/first_steps/#launch-and-inspect-instances), available on nixos via
+  ```nix
+  {
+    virtualisation.incus.enable = true;
+    networking.firewall.trustedInterfaces = [ "incusbr*" ];
+  }
+  ```
+
+  If you just need to run binaries that require a dynamic linker and some packages, take a look at [`programs.nix-ld`](https://search.nixos.org/options?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=programs.nix-ld)
