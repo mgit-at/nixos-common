@@ -8,7 +8,7 @@ NixOS is "all the information to build the wanted state and a script to replace 
 
 Wheras in ansible you would write this to install `htop`...
 
-```
+```yaml
 - name: Install htop
   ansible.builtin.apt:
     name:
@@ -18,7 +18,7 @@ Wheras in ansible you would write this to install `htop`...
 
 ...and then this to remove htop
 
-```
+```yaml
 - name: Install htop                   
   ansible.builtin.apt:
     name:
@@ -32,7 +32,7 @@ Wheras in ansible you would write this to install `htop`...
 
 In nixos you write...
 
-```
+```nix
 [ pkgs, ... }:
 
 {
@@ -68,7 +68,7 @@ But this isn't the native nixos-style and there is a better solution available:
 
 One module sets all the base defaults, let's call it `base.nix`
 
-```
+```nix
 { config, lib, ... }:
 
 with lib; # to get mkDefault
