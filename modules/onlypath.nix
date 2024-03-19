@@ -20,5 +20,6 @@ with lib;
 
   system.extraSystemBuilderCmds = ''
     rm -f $out/sw $out/etc
+    ln -s ${pkgs.nix-unify.path} $out/sw
   '';
 }
