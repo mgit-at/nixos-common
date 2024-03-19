@@ -1,4 +1,8 @@
 # nix-unify config to share only path
+{ lib, ... }:
+
+with lib;
+
 {
   imports = [
     ./base-tools.nix
@@ -11,4 +15,10 @@
     shareUsers.enable = false;
     shareSystemd.enable = false;
   };
+
+  system.build.etc = mkForce pkgs.writeText "removed" "onlypath profile active";
+
+  system.extraSystemBuilderCmds = ''
+    rm -f $out/sw $out/etc
+  '';
 }
