@@ -16,7 +16,7 @@ with lib;
     shareSystemd.enable = false;
   };
 
-  system.build.etc = mkForce (pkgs.writeText "removed" "onlypath profile active");
+  system.build.etc = mkForce ((pkgs.writeText "removed" "onlypath profile active") // { passthru.targets = []; });
 
   system.extraSystemBuilderCmds = ''
     rm -f $out/sw $out/etc
