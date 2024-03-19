@@ -1,5 +1,5 @@
 # nix-unify config to share only path
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 with lib;
 
