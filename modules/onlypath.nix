@@ -19,7 +19,6 @@ with lib;
   system.build.etc = mkForce ((pkgs.writeText "removed" "onlypath profile active") // { passthru.targets = []; });
 
   system.extraSystemBuilderCmds = ''
-    rm -f $out/sw $out/etc
-    ln -s ${pkgs.nix-unify.path} $out/sw
+    rm -f $out/etc
   '';
 }
