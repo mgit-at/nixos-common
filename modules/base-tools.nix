@@ -33,6 +33,5 @@
     # added in nixos
     sysz
     iftop
-    cert-viewer
-  ];
+  ] ++ (if pkgs ? "cert-viewer" then [ pkgs.cert-viewer ] else []);
 }
