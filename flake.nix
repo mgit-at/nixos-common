@@ -42,6 +42,7 @@
           nixSettings
           defaults
           ethtool-setringmax
+          prometheus-exporter-gateway
         ];
       });
 
