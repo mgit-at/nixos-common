@@ -4,6 +4,6 @@
   imports = [
     ./screen.nix
     ./sshd.nix
-    ./systctl.nix
+    ./sysctl.nix
   ];
 }
