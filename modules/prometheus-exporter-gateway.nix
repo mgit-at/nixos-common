@@ -14,16 +14,34 @@ in
   };
 
   config = mkIf (enabledExporters != {}) {
-    networking.firewall.allowedTCPPorts = [ 9443 ];
+    networking.firewall.allowedTCPPorts = [ 9000 ];
     services.nginx.virtualHosts."prometheus_exporter_gateway" = {
       listen = [
-        { ssl = true; port = 9443; addr = "[::]"; }
+        { ssl = true; port = 9000; addr = "[::]"; }
       ];
-      locations = mapAttrs' (exporter: exporterConf:
-        (nameValuePair "/${exporter}/" {
-          proxyPass = "http://localhost:${toString exporterConf.port}";
+      sslCertificate = "/var/lib/secrets/prom.cert.pem";
+      sslCertificateKey = "/var/lib/secrets/prom.key.pem";
+      extraConfig = ''
+        ssl_client_certificate /var/lib/secrets/client.ca.pem;
+      '';
+      locations = (mapAttrs' (exporter: exporterConf:
+        (nameValuePair "= /${exporter}" {
+          proxyPass = "http://localhost:${toString exporterConf.port}/metrics";
         })
-      ) enabledExporters;
+      ) enabledExporters) // {
+        "/" = {
+          root = pkgs.writeTextDir "index.html" ''
+            <!doctype html>
+            <head>
+              <title>prometheus exporters for ${config.networking.hostName}</title>
+            </head>
+            <body>
+              ${concatMapStringsSep "\n" (name: "<a href=\"/${name}\">${name} exporter</a>") (attrNames enabledExporters)}
+            </body>
+          '';
+          index = "index.html";
+        };
+      };
     };
   };
 }
