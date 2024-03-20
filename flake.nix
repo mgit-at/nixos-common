@@ -36,6 +36,7 @@
         ) (builtins.readDir ./modules);
       in modules // (with modules; {
         default = [
+          ansible-host
           base-tools
           flake2channel
           nixSettings
