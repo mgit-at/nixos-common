@@ -36,7 +36,7 @@ in
               <title>prometheus exporters for ${config.networking.hostName}</title>
             </head>
             <body>
-              ${concatMapStringsSep "\n" (name: "<a href=\"/${name}\">${name} exporter</a>") (attrNames enabledExporters)}
+              ${concatMapStringsSep "\n" (name: " » <a href=\"/${name}\">${name} exporter</a><br>") (attrNames enabledExporters)}
             </body>
           '';
           index = "index.html";
