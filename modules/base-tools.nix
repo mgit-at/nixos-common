@@ -33,5 +33,6 @@
     # added in nixos
     sysz
     iftop
+    cert-viewer
   ];
 }

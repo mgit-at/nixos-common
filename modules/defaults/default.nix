@@ -1,5 +1,6 @@
 {
   imports = [
+    ./misc.nix
     ./nginx.nix
     ./screen.nix
     ./sshd.nix
