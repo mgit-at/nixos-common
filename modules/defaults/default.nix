@@ -5,5 +5,6 @@
     ./screen.nix
     ./sshd.nix
     ./sysctl.nix
+    ./zsh.nix
   ];
 }
