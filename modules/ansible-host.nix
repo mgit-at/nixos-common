@@ -17,7 +17,7 @@ in
 
   config = mkIf (cfg.enable) {
     systemd.tmpfiles.rules = with pkgs; [
-      "L+ /usr/bin/python3 - - - - ${pkgs.python3.withPackages(ps: map (pkg: ps.${pkg}) cfg.extraPyPackages)}"
+      "L+ /usr/bin/python3 - - - - ${pkgs.python3.withPackages(ps: map (pkg: ps.${pkg}) cfg.extraPyPackages)}/bin/python3"
     ];
   };
 }
