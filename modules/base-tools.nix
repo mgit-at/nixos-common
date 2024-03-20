@@ -30,5 +30,8 @@
     acl
     ripgrep
     fd
+    # added in nixos
+    sysz
+    iftop
   ];
 }
