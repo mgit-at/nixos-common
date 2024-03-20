@@ -24,7 +24,6 @@ with lib;
     documentation.man.enable = true;
 
     system.extraSystemBuilderCmds = ''
-      set -x
       etcorig=$(readlink -f $out/etc)
       mv $out/etc $out/_etc
       for f in $out/_etc/systemd/system/nix-unify-at-boot.service $out/_etc/systemd/system/basic.target.wants/nix-unify-at-boot.service; do
