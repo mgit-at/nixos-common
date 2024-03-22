@@ -34,7 +34,7 @@
             (removeSuffix ".nix" key)
             (import "${./modules}/${key}")
         ) (builtins.readDir ./modules);
-      in modules // (with modules; {
+      in modules // (with modules; rec {
         default = [
           ansible-host
           base-tools
@@ -43,6 +43,16 @@
           defaults
           ethtool-setringmax
           prometheus-exporter-gateway
+        ];
+        ansible_default = default ++ [
+          nix-unify.nixosModules.ansible
+        ];
+        unify_default = ansible_default ++ [
+          nix-unify.nixosModules.unify
+        ];
+        onlypath_default = [
+          nix-unify.nixosModules.unify
+          onlypath
         ];
       });
 
@@ -58,7 +68,7 @@
         (builtins.readDir ./tests)) //
       {
         onlypath = (pkgs.nixos {
-          imports = [ self.nixosModules.onlypath nix-unify.nixosModules.unify ];
+          imports = self.nixosModules.onlypath_default;
           nixpkgs.hostPlatform = system;
         }).config.system.build.toplevel;
       }
