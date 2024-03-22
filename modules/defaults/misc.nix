@@ -1,6 +1,7 @@
 {
   security.sudo.enable = false;
   users.mutableUsers = false;
+  networking.useDHCP = true;
 
   # todo: su exec only possible in root group
 

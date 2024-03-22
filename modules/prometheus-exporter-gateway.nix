@@ -19,6 +19,7 @@ in
       listen = [
         { ssl = true; port = 9000; addr = "[::]"; }
       ];
+      onlySSL = true;
       sslCertificate = "/var/lib/secrets/prom.cert.pem";
       sslCertificateKey = "/var/lib/secrets/prom.key.pem";
       extraConfig = ''

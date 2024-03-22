@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1710889231,
-        "narHash": "sha256-D+l97o7fL4N5fr66qwkJjF1Kdc73gY54fC7jof9p2qw=",
+        "lastModified": 1710948507,
+        "narHash": "sha256-UE90VgLH67RIyMg/W+CLMQYU5BKGtiqtH51yhg0AcTQ=",
         "owner": "mgit-at",
         "repo": "nix-unify",
-        "rev": "80513ef7e3ac6b49e5c6ddeb9d711dac1bf93694",
+        "rev": "e4542af728f2ff813445ec74b93fc20301318a5a",
         "type": "github"
       },
       "original": {
