@@ -1,7 +1,12 @@
+{ lib, ... }:
+
+with lib;
+
 {
   security.sudo.enable = false;
   users.mutableUsers = false;
   boot.initrd.systemd.enable = true;
+  powerManagement.cpuFreqGovernor = mkDefault "performance";
 
   # todo: su exec only possible in root group
 
