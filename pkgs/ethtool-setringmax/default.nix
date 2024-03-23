@@ -27,4 +27,9 @@ stdenv.mkDerivation {
     install -D ethtool-setringmax $out/bin/ethtool-setringmax
     install -D ethtool-setringmax.awk $out/libexec/ethtool-setringmax.awk
   '';
+
+  meta = {
+    mainProgram = "ethtool-setringmax";
+    maintainers = with lib.maintainers; [ mkg20001 ];
+  };
 }

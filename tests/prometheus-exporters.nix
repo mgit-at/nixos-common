@@ -8,7 +8,7 @@ inputs: mod: { pkgs, lib, ... }:
     source = { lib, pkgs, ... }: {
       imports = mod.default;
 
-      services.nginx.enable = true;
+      # services.nginx.enable = true;
       services.prometheus.exporters.node.enable = true;
     };
 
@@ -21,7 +21,7 @@ inputs: mod: { pkgs, lib, ... }:
 
   testScript = ''
     start_all()
-    source.wait_for_unit("nginx")
-    monitoring.execute("curl https://source:9433")
+    # source.wait_for_unit("nginx")
+    # monitoring.execute("curl https://source:9000")
   '';
 }

@@ -12,7 +12,7 @@ with lib;
       serviceConfig = {
         Description = "Set Ring Parameters for Network Interfaces";
         Type = "oneshot";
-        ExecStart = "${pkgs.ethtool-setringmax}/bin/ethtool-setringmax";
+        ExecStart = getExe pkgs.ethtool-setringmax;
         RemainAfterExit = true;
       };
     };
