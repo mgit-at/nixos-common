@@ -2,6 +2,7 @@
   security.sudo.enable = false;
   users.mutableUsers = false;
   networking.useDHCP = true;
+  networking.useNetworkd = true;
   boot.initrd.systemd.enable = true;
 
   # todo: su exec only possible in root group
