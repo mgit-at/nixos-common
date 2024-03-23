@@ -46,6 +46,7 @@
         ];
         ansible_default = default ++ [
           nix-unify.nixosModules.ansible
+          from_ansible
         ];
         unify_default = ansible_default ++ [
           nix-unify.nixosModules.unify
@@ -70,6 +71,29 @@
         onlypath = (pkgs.nixos {
           imports = self.nixosModules.onlypath_default;
           nixpkgs.hostPlatform = system;
+        }).config.system.build.toplevel;
+
+        # check if our ansible set evaluates without any ansible stuff set
+        # (this allows better ci testing)
+        ansible = (import "${nixpkgs}/nixos/lib/eval-config.nix" {
+          modules = [
+            {
+              imports = self.nixosModules.ansible_default;
+              nixpkgs.hostPlatform = system;
+              nixpkgs.overlays = [ self.overlays.default ];
+              fileSystems."/" = { device = "/dev/sda1"; fsType = "ext4"; };
+              boot.loader.systemd-boot.enable = true;
+              users.allowNoPasswordLogin = true;
+            }
+          ];
+
+          # this needs to be set via pkgs.nixos,
+          # but there's no way to do that
+          specialArgs = {
+            inherit inputs;
+          };
+
+          system = null;
         }).config.system.build.toplevel;
       }
     );
