@@ -25,10 +25,13 @@ let
     "thunderbolt"
     "usb-midi"
   ];
+
+  all = net ++ fs ++ misc;
 in
 {
   environment.etc."modprobe.d/disablemod.conf".text = concatStringsSep "\n"
-    (map (module: "install ${module} ${pkgs.coreutils}/bin/true")
-      (net ++ fs ++ misc)
-    );
+    (map (module: "install ${module} ${pkgs.coreutils}/bin/true") all
+  );
+
+  boot.blacklistedKernelModules = all;
 }
