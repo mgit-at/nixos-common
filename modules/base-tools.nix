@@ -34,5 +34,6 @@
     sysz
     iftop
     cert-viewer
+    ncdu
   ];
 }
