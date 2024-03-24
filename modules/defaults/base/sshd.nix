@@ -11,7 +11,8 @@ with lib;
       HostbasedAuthentication = false;
       PermitEmptyPasswords = false;
       UseDns = false;
-      UsePAM = mkDefault true;
+      # disabling this breaks ssh login under nixos
+      UsePAM = true;
     };
 
     # https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/doc/user/gitlab_com/index.md#ssh-host-keys-fingerprints
