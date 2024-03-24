@@ -11,7 +11,7 @@ with lib;
       HostbasedAuthentication = false;
       PermitEmptyPasswords = false;
       UseDns = false;
-      UsePAM = mkDefault true;
+      UsePAM = mkDefault false;
     };
 
     # https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/doc/user/gitlab_com/index.md#ssh-host-keys-fingerprints
