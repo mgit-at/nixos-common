@@ -3,7 +3,7 @@
 }:
 
 ansible.overrideAttrs (a: {
-  pname = "ansible-mgit";
+  name = "${a.name}-MGIT";
   # add missing hcloud dependency to ansible
   propagatedBuildInputs = a.propagatedBuildInputs ++ (with python3Packages; [
     hcloud
