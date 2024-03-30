@@ -27,5 +27,22 @@ in
     environment.etc."docker/daemon.json".text = ''
       {"ipv6":true,"fixed-cidr-v6":"fd00:dead:beef:c0::/80","experimental":true,"ip6tables":true}
     '';
+
+    networking.firewall.allowedTCPPorts = [
+      25
+      80
+      110
+      143
+      443
+      465
+      587
+      993
+      995
+      3306
+      4190
+      6379
+      8983
+      12345
+    ];
   };
 }
