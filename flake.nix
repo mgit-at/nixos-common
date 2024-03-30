@@ -43,6 +43,7 @@
           defaults
           ethtool-setringmax
           prometheus-exporter-gateway
+          mailcow
         ];
         ansible_default = default ++ [
           nix-unify.nixosModules.ansible
