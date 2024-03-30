@@ -11,7 +11,7 @@ with lib;
   # todo: su exec only possible in root group
 
   # network
-  networking.useDHCP = true;
+  networking.useDHCP = false;
   networking.useNetworkd = true;
 
   # firewall
