@@ -20,5 +20,5 @@ with lib;
   networking.nftables.flushRuleset = false;
 
   # lock-out protection
-  networking.firewall.allowedTCPPorts = [ 22 ];
+  services.openssh.openFirewall = true;
 }
