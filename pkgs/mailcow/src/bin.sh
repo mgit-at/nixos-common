@@ -4,7 +4,7 @@ set -euo pipefail
 
 export PATH=@path@
 
-MAILCOW_DIR="/root/mailcow"
+MAILCOW_DIR="/srv/mailcow"
 
 die() {
   echo "ERROR: $*" >&2
