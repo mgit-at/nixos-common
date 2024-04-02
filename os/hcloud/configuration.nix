@@ -1,9 +1,9 @@
-{ inputs, modulesPath, ... }:
+disko: { inputs, modulesPath, ... }:
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
 
-    inputs.disko.nixosModules.disko
+    disko.nixosModules.disko
     ./disko.nix
     ({
       _module.args.disks = [ "/dev/sda" ];

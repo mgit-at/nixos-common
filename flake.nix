@@ -58,7 +58,7 @@
           nix-unify.nixosModules.unify
           onlypath
         ];
-        hcloud_base = ./os/hcloud/configuration.nix;
+        hcloud_base = import ./os/hcloud/configuration.nix disko;
       });
 
     checks = forAllSystems (system:
@@ -108,7 +108,7 @@
       system = "x86_64-linux";
       specialArgs.inputs = inputs;
       modules = self.nixosModules.default ++ [
-        ./os/hcloud/configuration.nix
+        (import ./os/hcloud/configuration.nix disko)
         ({
           users.users.root.password = "mgitsetup";
           services.openssh.settings.PermitRootLogin = "yes";
