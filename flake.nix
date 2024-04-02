@@ -4,8 +4,10 @@
   inputs.nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
   inputs.nix-unify.url = "github:mgit-at/nix-unify/master";
   inputs.nix-unify.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.disko.url = "github:nix-community/disko";
+  inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
 
-  outputs = { self, nixpkgs, nix-unify }@inputs: with nixpkgs.lib; let
+  outputs = { self, nixpkgs, nix-unify, disko }@inputs: with nixpkgs.lib; let
     supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
     forAllSystems = f: nixpkgs.lib.genAttrs supportedSystems (system: f system);
   in {
@@ -100,5 +102,19 @@
         ansibleDevShell = pkgs.mkAnsibleDevShell {};
       }
     );
+
+    nixosConfigurations.hcloud = inputs.nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs.inputs = inputs;
+      modules = self.nixosModules.default ++ [
+        ./os/hcloud/configuration.nix
+        ({
+          users.users.root.password = "mgitsetup";
+          services.openssh.settings.PermitRootLogin = "yes";
+          nixpkgs.overlays = [ self.overlays.default ];
+          networking.useDHCP = nixpkgs.lib.mkForce true;
+        })
+      ];
+    };
   };
 }
