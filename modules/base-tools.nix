@@ -34,6 +34,7 @@
     sysz
     iftop
     cert-viewer
-    ncdu
+    dua
+    (writeShellScriptBin "ncdu" "echo 'did you mean: dua?' && exit 2")
   ];
 }
