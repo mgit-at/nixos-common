@@ -58,6 +58,7 @@
           nix-unify.nixosModules.unify
           onlypath
         ];
+        hcloud_base = ./os/hcloud/configuration.nix;
       });
 
     checks = forAllSystems (system:
