@@ -35,6 +35,6 @@
     iftop
     cert-viewer
     dua
-    (writeShellScriptBin "ncdu" "echo 'did you mean: dua?' && exit 2")
+    (writeShellScriptBin "ncdu" "echo 'did you mean: dua?' && echo '$ dua -x i /' && exit 2")
   ];
 }
