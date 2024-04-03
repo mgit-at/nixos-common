@@ -28,6 +28,9 @@ in
       {"ipv6":true,"fixed-cidr-v6":"fd00:dead:beef:c0::/80","experimental":true,"ip6tables":true}
     '';
 
+    # this breaks the mailcow internal monitoring during os upgrades, so turn it off
+    virtualisation.docker.liveRestore = false;
+
     networking.firewall.allowedTCPPorts = [
       25
       80
