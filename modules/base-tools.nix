@@ -4,6 +4,7 @@
   programs.mtr.enable = true;
 
   environment.systemPackages = with pkgs; [
+    nixos-needsreboot # for updating
     htop
     curl
     dstat
