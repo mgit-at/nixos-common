@@ -59,6 +59,7 @@
           onlypath
         ];
         hcloud_base = import ./os/hcloud/configuration.nix disko;
+        _disko = disko.nixosModules.disko;
       });
 
     checks = forAllSystems (system:
@@ -116,6 +117,11 @@
           networking.useDHCP = nixpkgs.lib.mkForce true;
         })
       ];
+    };
+
+    templates.default = {
+      path = ./template;
+      description = "Default mgit nixos+ansible configuration";
     };
   };
 }

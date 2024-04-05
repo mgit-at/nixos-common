@@ -1,0 +1,27 @@
+---
+# Lists of versions used upstream:
+# https://github.com/ansible-community/ansible-build-data
+
+# This current set of versions corresponds to:
+# Ansible 5.7.1
+
+collections:
+  # inventory plugin, hcloud_server module
+  - name: hetzner.hcloud
+    version: 1.6.0
+    source: https://galaxy.ansible.com
+
+  # mgssl module
+  - name: mgit_at.mgssl
+    version: 2.1.3
+    source: https://galaxy.ansible.com
+
+  # nix-unify module
+  - name: mgit_at.nix_unify
+    version: 0.4.5
+
+  # mgit_at.roles collection
+  # various roles
+  - name: https://github.com/mgit-at/ansible-collection-roles
+    version: main # just follow git for now
+    type: git

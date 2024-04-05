@@ -1,0 +1,7 @@
+---
+- name: Deploy HOSTORGROUP
+  hosts:
+    - HOSTORGROUP
+  roles:
+    - role: mgit_at.nix_unify.local_nix
+    - role: mgit_at.nix_unify.nixos_rebuild
