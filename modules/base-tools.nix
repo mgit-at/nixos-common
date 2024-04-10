@@ -32,10 +32,11 @@
     ripgrep
     fd
     # added in nixos
-    sysz
-    iftop
+    sysz # fzf but for systemctl
+    iftop # bandwidth
     cert-viewer
-    dua
+    dua # disk usage analyzer
     (writeShellScriptBin "ncdu" "echo 'did you mean: dua?' && echo '$ dua -x i /' && exit 2")
+    pwru # kernel packet processing debugging (tcpdump but for firewall)
   ];
 }
