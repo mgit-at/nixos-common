@@ -20,6 +20,9 @@ stdenv.mkDerivation {
       --subst-var-by ethtool ${ethtool}/bin/ethtool \
       --subst-var-by out ${placeholder "out"}
 
+    substituteInPlace ethtool-setringmax.awk \
+      --subst-var-by ethtool ${ethtool}/bin/ethtool
+
     patchShebangs ethtool-setringmax.awk
   '';
 

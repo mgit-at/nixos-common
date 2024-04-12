@@ -39,7 +39,7 @@ END {
     cmd=cmd" rx "max["rx"]
   }
   if(cmd != "") {
-    exec="ethtool -G "ifname" "cmd
+    exec="@ethtool@ -G "ifname" "cmd
     print("executing: "exec)
     ret=system(exec)
     if(ret > 512){
