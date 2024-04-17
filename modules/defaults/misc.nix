@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 with lib;
 
@@ -9,6 +9,11 @@ with lib;
   powerManagement.cpuFreqGovernor = mkDefault "performance";
 
   # todo: su exec only possible in root group
+
+  # check if reboot needed after update - creates /run/reboot-required
+  system.activationScripts.zz-needsreboot.text = ''
+    ${getExe pkgs.nixos-needsreboot} >/dev/null
+  '';
 
   # network
   networking.useDHCP = false;
