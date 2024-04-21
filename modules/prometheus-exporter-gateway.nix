@@ -32,13 +32,28 @@ in
       ) enabledExporters) // {
         "/" = {
           root = pkgs.writeTextDir "index.html" ''
-            <!doctype html>
-            <head>
-              <title>prometheus exporters for ${config.networking.hostName}</title>
-            </head>
-            <body>
-              ${concatMapStringsSep "\n" (name: " » <a href=\"/${name}\">${name} exporter</a><br>") (attrNames enabledExporters)}
-            </body>
+            <!DOCTYPE html>
+            <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Prometheus Metrics for ${config.networking.hostName}</title>
+                    <style>
+                      ul {
+                        list-style-type: "» ";
+                      }
+
+                      body {
+                        font-family: sans-serif;
+                      }
+                    </style>
+                </head>
+                <body>
+                    <h1>Prometheus Metrics for ${config.networking.hostName}</h1>
+                    <ul>
+                        ${concatMapStringsSep "\n" (name: " <li><a href=\"/${name}\">${name}</a></li>") (attrNames enabledExporters)}
+                    </ul>
+                </body>
+            </html>
           '';
           index = "index.html";
         };
