@@ -17,7 +17,6 @@ ansible.overrideAttrs (a: {
   propagatedBuildInputs = a.propagatedBuildInputs ++ (extraPy python3Packages);
 
   preFixup = ''
-    makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
     makeWrapperArgs+=(--prefix PYTHONPATH : "${py}/${py.sitePackages}")
   '';
 })
