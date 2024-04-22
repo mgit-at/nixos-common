@@ -3,17 +3,24 @@
 with lib;
 
 let
-  enabledExporters = filterAttrs (_: c: isAttrs c && c.enable) config.services.prometheus.exporters;
+  cfg = config.mgit.exporters;
+  enabledExporters = (mapAttrs (_: conf: conf.port)
+    (filterAttrs (_: c: isAttrs c && c.enable) config.services.prometheus.exporters))
+    // cfg.extraPorts;
 in
 {
-  options.mgit.prometheusExporterGateway = {
-    rootCA = mkOption {
-      type = types.str;
-      description = "CA to validate incoming tls client connections";
+  options.mgit.exporters = {
+    enable = mkEnableOption "mgit prometheus nginx exporter" // { default = true; };
+
+    extraPorts = mkOption {
+      type = types.attrsOf types.port;
+      description = "Extra ports to add to nginx config";
+      default = {};
+      example = { cilium = 9962; };
     };
   };
 
-  config = mkIf (enabledExporters != {}) {
+  config = mkIf (cfg.enable && enabledExporters != {}) {
     networking.firewall.allowedTCPPorts = [ 9000 ];
 
     ansible-host.extraPyPackages = [ "cryptography" "pyopenssl" ];
@@ -28,9 +35,9 @@ in
       extraConfig = ''
         ssl_client_certificate /etc/ssl/prometheus-exporter/prom-exporter-ca.pem;
       '';
-      locations = (mapAttrs' (exporter: exporterConf:
+      locations = (mapAttrs' (exporter: port:
         (nameValuePair "= /${exporter}" {
-          proxyPass = "http://localhost:${toString exporterConf.port}/metrics";
+          proxyPass = "http://localhost:${toString port}/metrics";
         })
       ) enabledExporters) // {
         "/" = {
