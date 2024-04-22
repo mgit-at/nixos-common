@@ -7,5 +7,6 @@ ansible.overrideAttrs (a: {
   # add missing hcloud dependency to ansible
   propagatedBuildInputs = a.propagatedBuildInputs ++ (with python3Packages; [
     hcloud
+    cryptography
   ]);
 })
