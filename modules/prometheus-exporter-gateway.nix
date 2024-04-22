@@ -23,10 +23,10 @@ in
         { ssl = true; port = 9000; addr = "[::]"; }
       ];
       onlySSL = true;
-      sslCertificate = "/var/lib/secrets/prom.cert.pem";
-      sslCertificateKey = "/var/lib/secrets/prom.key.pem";
+      sslCertificate = "/etc/ssl/prometheus-exporter/server-${config.networking.hostName}-chain.pem";
+      sslCertificateKey = "/etc/ssl/prometheus-exporter/server-${config.networking.hostName}-key.pem";
       extraConfig = ''
-        ssl_client_certificate /var/lib/secrets/client.ca.pem;
+        ssl_client_certificate /etc/ssl/prometheus-exporter/prom-exporter-ca.pem;
       '';
       locations = (mapAttrs' (exporter: exporterConf:
         (nameValuePair "= /${exporter}" {
