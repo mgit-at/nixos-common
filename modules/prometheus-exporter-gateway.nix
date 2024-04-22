@@ -15,6 +15,9 @@ in
 
   config = mkIf (enabledExporters != {}) {
     networking.firewall.allowedTCPPorts = [ 9000 ];
+
+    ansible-host.extraPyPackages = [ "cryptography" ];
+
     services.nginx.virtualHosts."prometheus_exporter_gateway" = {
       listen = [
         { ssl = true; port = 9000; addr = "[::]"; }
