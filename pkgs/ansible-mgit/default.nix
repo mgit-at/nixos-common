@@ -8,5 +8,6 @@ ansible.overrideAttrs (a: {
   propagatedBuildInputs = a.propagatedBuildInputs ++ (with python3Packages; [
     hcloud
     cryptography
+    pyopenssl
   ]);
 })
