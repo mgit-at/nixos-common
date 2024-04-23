@@ -3,8 +3,14 @@
 {
   programs.mtr.enable = true;
 
+  programs.htop = {
+    enable = true;
+    settings = {
+      hide_userland_threads = true;
+    };
+  };
+
   environment.systemPackages = with pkgs; [
-    htop
     curl
     dstat
     lsof
