@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./exporters.nix
     ./modules.nix
     ./resolved.nix
     ./screen.nix
