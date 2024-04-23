@@ -3,6 +3,7 @@
 {
   imports = [
     ./modules.nix
+    ./resolved.nix
     ./screen.nix
     ./sshd.nix
     ./sysctl.nix
