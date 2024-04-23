@@ -11,6 +11,8 @@
     (name: value: {
       name = "nix/path/${name}";
       value.source = value.flake;
-    })
-    config.nix.registry;
+    }) (lib.filterAttrs # this prevents including the customer's ansible repo, which may contain bare secrets
+         (name: _: name != "self")
+         config.nix.registry
+       );
 }
