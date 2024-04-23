@@ -25,6 +25,8 @@ in
 
     ansible-host.extraPyPackages = [ "cryptography" "pyopenssl" ];
 
+    services.nginx.enable = true;
+
     services.nginx.virtualHosts."prometheus_exporter_gateway" = {
       listen = [
         { ssl = true; port = 9000; addr = "[::]"; }
