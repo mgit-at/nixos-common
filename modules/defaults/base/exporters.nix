@@ -1,5 +1,5 @@
 {
   services.prometheus.exporters = {
-    node.extraFlags = [ "--web.listen-address=[::1]:9100" ];
+    node.listenAddress = "[::1]";
   };
 }
