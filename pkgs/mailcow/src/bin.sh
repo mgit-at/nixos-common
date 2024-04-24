@@ -1,34 +1,44 @@
-#!/usr/bin/env bash
+#!/usr/bin/env ysh
 
 set -euo pipefail
 
 export PATH=@path@
 
-MAILCOW_DIR="/srv/mailcow"
+export MAILCOW_DIR="/srv/mailcow"
 
 die() {
   echo "ERROR: $*" >&2
   exit 2
 }
 
-if [ "$(id -u)" -gt 0 ]; then
+id="$(id -u)"
+if test "$id" -gt 0 {
   die "must be root"
-fi
+}
 
-if [ ! -e "$MAILCOW_DIR" ]; then
+if ! test -e "$MAILCOW_DIR" {
   git clone https://github.com/mailcow/mailcow-dockerized "$MAILCOW_DIR"
-fi
+}
 
 pushd "$MAILCOW_DIR"
 
-if [ "$(basename "$0")" = "mailcow-shell" ]; then
+var basename = "$(basename "$0")"
+if (basename === "mailcow-shell") {
   echo "opening shell..."
   exec $SHELL
   exit $?
-fi
+}
 
-if [ ! -e mailcow.conf ]; then
+if test ! -e mailcow.conf {
   ./generate_config.sh
-fi
+}
+
+var settings
+cat /etc/mailcow.json | json read (&settings)
+for i, k, v in (settings) {
+  initool set mailcow.conf "" "$k" "$v" > /tmp/mailcow.conf
+  diff -u mailcow.conf /tmp/mailcow.conf || true
+  mv /tmp/mailcow.conf mailcow.conf
+}
 
 ./update.sh

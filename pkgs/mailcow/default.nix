@@ -2,6 +2,9 @@
 , which
 , openssl
 , bash
+, oils-for-unix
+, initool
+, diffutils
 , coreutils
 , curl
 , wget
@@ -16,6 +19,10 @@
 
 let
   pathPkgs = [
+    # script
+    initool
+    diffutils
+    # mailcow
     which
     openssl
     bash
@@ -35,6 +42,10 @@ stdenv.mkDerivation {
   name = "mailcow";
 
   src = ./src;
+
+  buildInputs = [
+    oils-for-unix
+  ];
 
   buildPhase = ''
     substituteInPlace bin.sh \
