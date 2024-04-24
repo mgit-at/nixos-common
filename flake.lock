@@ -30,11 +30,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1713975992,
-        "narHash": "sha256-lktx6zatVTceRTlL/rv2C6CxSblKr0aIj0s2J/rxk/A=",
+        "lastModified": 1713982057,
+        "narHash": "sha256-d/K4HRSCcfgnzFKuvvbLm6n2l+OqCyPOsI+RgX2YqqA=",
         "owner": "mgit-at",
         "repo": "prometheus-mgit-exporter",
-        "rev": "534ae757ab4f7f722edb6da906d0747953813bbc",
+        "rev": "f397668873244f673813ffbf547d9bde5c5bd9ff",
         "type": "github"
       },
       "original": {
@@ -83,11 +83,11 @@
     },
     "patches4nixpkgs": {
       "locked": {
-        "lastModified": 1713976846,
-        "narHash": "sha256-wOcVzWZqZzekwc6pejLoYidtG42zYDzvAAMcIkWd0+E=",
+        "lastModified": 1713977087,
+        "narHash": "sha256-51OLFsmVae3nU9QmfiwImsC0GmLU2+7JTZDwIHh9wrs=",
         "owner": "mgit-at",
         "repo": "patches4nixpkgs",
-        "rev": "badbbd1addeb60ecc71ee725a718c9fdd36f57e7",
+        "rev": "059ce8ba84741a58133a7f7c8601de5c3b44445b",
         "type": "github"
       },
       "original": {
