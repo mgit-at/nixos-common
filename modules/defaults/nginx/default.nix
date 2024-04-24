@@ -1,4 +1,4 @@
-{ options, config, lib, ... }@args:
+{ options, config, lib, ... }@args: with lib;
 import ../_with_unify.nix args config.services.nginx.enable
 {
   services.nginx = {
@@ -12,7 +12,7 @@ import ../_with_unify.nix args config.services.nginx.enable
 
     # Default block returns null for SSL requests with the wrong hostname
     # This is to prevent SNI info leak. This configuration only works for nginx 1.19.4 and later.
-    virtualHosts."default" = {
+    virtualHosts."default" = mkIf (config.mgit.nginx.defaultEmptyHost) {
       default = true;
       listen = [
         { port = 443; ssl = true; addr = "[::]"; }
