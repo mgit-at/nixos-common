@@ -21,7 +21,8 @@
     in
       self;
   in {
-    overlays.default = import ./overlay.nix;
+    overlays.default = final: prev:
+      (import ./overlay.nix final prev) // (inputs.mgit-exporter.overlays.default final prev);
 
     inherit nixpkgs;
 
