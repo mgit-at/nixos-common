@@ -59,6 +59,7 @@
           onlypath
         ];
         hcloud_base = import ./os/hcloud/configuration.nix disko;
+        incus_base = import ./os/incus/configuration.nix;
         _disko = disko.nixosModules.disko;
       });
 
@@ -105,18 +106,31 @@
       }
     );
 
-    nixosConfigurations.hcloud = inputs.nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs.inputs = inputs;
-      modules = self.nixosModules.default ++ [
-        (import ./os/hcloud/configuration.nix disko)
-        ({
-          users.users.root.password = "mgitsetup";
-          services.openssh.settings.PermitRootLogin = "yes";
-          nixpkgs.overlays = [ self.overlays.default ];
-          networking.useDHCP = nixpkgs.lib.mkForce true;
-        })
-      ];
+    nixosConfigurations = {
+      hcloud = inputs.nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs.inputs = inputs;
+        modules = self.nixosModules.default ++ [
+          (import ./os/hcloud/configuration.nix disko)
+          ({
+            users.users.root.password = "mgitsetup";
+            services.openssh.settings.PermitRootLogin = "yes";
+            nixpkgs.overlays = [ self.overlays.default ];
+            networking.useDHCP = nixpkgs.lib.mkForce true;
+          })
+        ];
+      };
+
+      incus = inputs.nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs.inputs = inputs;
+        modules = self.nixosModules.default ++ [
+          (import ./os/incus/initial.nix)
+          ({
+            nixpkgs.overlays = [ self.overlays.default ];
+          })
+        ];
+      };
     };
 
     templates.default = {
