@@ -15,11 +15,8 @@
     supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
     forAllSystems = f: nixpkgs.lib.genAttrs supportedSystems (system: f system);
 
-    patchPkgs = builtins.toString (patches4nixpkgs.patch inputs.nixpkgs [ mgit-exporter ]);
-    nixpkgs = let
-      self = {} // { outPath = patchPkgs; } // ((import "${patchPkgs}/flake.nix").outputs { inherit self; });
-    in
-      self;
+    patchPkgs = patches4nixpkgs.patch inputs.nixpkgs [ mgit-exporter ];
+    nixpkgs = patches4nixpkgs.eval patchPkgs;
   in {
     overlays.default = final: prev:
       (import ./overlay.nix final prev) // (inputs.mgit-exporter.overlays.default final prev);
