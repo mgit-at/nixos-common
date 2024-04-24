@@ -20,6 +20,30 @@
         "type": "github"
       }
     },
+    "mgit-exporter": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "patches4nixpkgs": [
+          "patches4nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1713971419,
+        "narHash": "sha256-gBj71loRbR03r7CYlV5W0YQ6iM+78lUl2rKUEyBIJpM=",
+        "owner": "mgit-at",
+        "repo": "prometheus-mgit-exporter",
+        "rev": "f6d5d23621fce3ff51bbe3dd52bfebcb742a01fa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mgit-at",
+        "ref": "topic/nixos",
+        "repo": "prometheus-mgit-exporter",
+        "type": "github"
+      }
+    },
     "nix-unify": {
       "inputs": {
         "nixpkgs": [
@@ -57,11 +81,29 @@
         "type": "github"
       }
     },
+    "patches4nixpkgs": {
+      "locked": {
+        "lastModified": 1713970892,
+        "narHash": "sha256-uGQ6HSroqXMe6rNdvcCtH8nrrms5MrcEeViv77Ro3yY=",
+        "owner": "mgit-at",
+        "repo": "patches4nixpkgs",
+        "rev": "c2069f177de11dad413de44ccb6499eccf11e5df",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mgit-at",
+        "ref": "master",
+        "repo": "patches4nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "disko": "disko",
+        "mgit-exporter": "mgit-exporter",
         "nix-unify": "nix-unify",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "patches4nixpkgs": "patches4nixpkgs"
       }
     }
   },

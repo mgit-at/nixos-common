@@ -6,16 +6,28 @@
   inputs.nix-unify.inputs.nixpkgs.follows = "nixpkgs";
   inputs.disko.url = "github:nix-community/disko";
   inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.patches4nixpkgs.url = "github:mgit-at/patches4nixpkgs/master";
+  inputs.mgit-exporter.url = "github:mgit-at/prometheus-mgit-exporter/topic/nixos";
+  inputs.mgit-exporter.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.mgit-exporter.inputs.patches4nixpkgs.follows = "patches4nixpkgs";
 
-  outputs = { self, nixpkgs, nix-unify, disko }@inputs: with nixpkgs.lib; let
+  outputs = { self, nix-unify, disko, patches4nixpkgs, mgit-exporter, ... }@inputs: with inputs.nixpkgs.lib; let
     supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
     forAllSystems = f: nixpkgs.lib.genAttrs supportedSystems (system: f system);
+
+    patchPkgs = builtins.toString (patches4nixpkgs.patch inputs.nixpkgs [ mgit-exporter ]);
+    nixpkgs = let
+      self = {} // { outPath = patchPkgs; } // ((import "${patchPkgs}/flake.nix").outputs { inherit self; });
+    in
+      self;
   in {
     overlays.default = import ./overlay.nix;
 
+    inherit nixpkgs;
+
     packages = forAllSystems (system:
       let
-        pkgs = import "${nixpkgs}" {
+        pkgs = import "${nixpkgs.outPath}" {
           inherit system;
           overlays = [ self.overlays.default ];
         };
@@ -37,7 +49,12 @@
             (import "${./modules}/${key}")
         ) (builtins.readDir ./modules);
       in modules // (with modules; rec {
+        mgit-exporter = inputs.mgit-exporter.nixosModules.prometheus-mgit-exporter;
+
         default = [
+          ({
+            nix.registry.nixpkgs.to.path = nixpkgs.lib.mkForce patchPkgs;
+          })
           ansible-host
           base-tools
           flake2channel
@@ -46,6 +63,7 @@
           ethtool-setringmax
           prometheus-exporter-gateway
           mailcow
+          mgit-exporter
         ];
         ansible_default = default ++ [
           nix-unify.nixosModules.ansible
@@ -65,7 +83,7 @@
 
     checks = forAllSystems (system:
       let
-        pkgs = (import nixpkgs {
+        pkgs = (import nixpkgs.outPath {
           inherit system;
           overlays = [ self.overlays.default ];
         });
@@ -81,7 +99,7 @@
 
         # check if our ansible set evaluates without any ansible stuff set
         # (this allows better ci testing)
-        ansible = (import "${nixpkgs}/nixos/lib/eval-config.nix" {
+        ansible = (import "${nixpkgs.outPath}/nixos/lib/eval-config.nix" {
           modules = [
             {
               imports = self.nixosModules.ansible_default;
@@ -107,7 +125,7 @@
     );
 
     nixosConfigurations = {
-      hcloud = inputs.nixpkgs.lib.nixosSystem {
+      hcloud = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs.inputs = inputs;
         modules = self.nixosModules.default ++ [
@@ -121,7 +139,7 @@
         ];
       };
 
-      incus = inputs.nixpkgs.lib.nixosSystem {
+      incus = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs.inputs = inputs;
         modules = self.nixosModules.default ++ [
