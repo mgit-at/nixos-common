@@ -30,11 +30,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1713971419,
-        "narHash": "sha256-gBj71loRbR03r7CYlV5W0YQ6iM+78lUl2rKUEyBIJpM=",
+        "lastModified": 1713975992,
+        "narHash": "sha256-lktx6zatVTceRTlL/rv2C6CxSblKr0aIj0s2J/rxk/A=",
         "owner": "mgit-at",
         "repo": "prometheus-mgit-exporter",
-        "rev": "f6d5d23621fce3ff51bbe3dd52bfebcb742a01fa",
+        "rev": "534ae757ab4f7f722edb6da906d0747953813bbc",
         "type": "github"
       },
       "original": {
