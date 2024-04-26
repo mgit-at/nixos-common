@@ -25,7 +25,7 @@
 
     packages = forAllSystems (system:
       let
-        pkgs = import "${nixpkgs.outPath}" {
+        pkgs = import "${nixpkgs}" {
           inherit system;
           overlays = [ self.overlays.default ];
         };
@@ -81,7 +81,7 @@
 
     checks = forAllSystems (system:
       let
-        pkgs = (import nixpkgs.outPath {
+        pkgs = (import nixpkgs {
           inherit system;
           overlays = [ self.overlays.default ];
         });
@@ -97,7 +97,7 @@
 
         # check if our ansible set evaluates without any ansible stuff set
         # (this allows better ci testing)
-        ansible = (import "${nixpkgs.outPath}/nixos/lib/eval-config.nix" {
+        ansible = (import "${nixpkgs}/nixos/lib/eval-config.nix" {
           modules = [
             {
               imports = self.nixosModules.ansible_default;
