@@ -30,6 +30,7 @@ in
     services.nginx.virtualHosts."prometheus_exporter_gateway" = {
       listen = [
         { ssl = true; port = 9000; addr = "[::]"; }
+        { ssl = true; port = 9000; addr = "0.0.0.0"; }
       ];
       onlySSL = true;
       sslCertificate = "/etc/ssl/prometheus-exporter/server-${config.networking.hostName}-chain.pem";

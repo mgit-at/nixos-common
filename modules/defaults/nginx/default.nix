@@ -17,6 +17,8 @@ import ../_with_unify.nix args config.services.nginx.enable
       listen = [
         { port = 443; ssl = true; addr = "[::]"; }
         { port = 80; addr = "[::]"; }
+        { port = 443; ssl = true; addr = "0.0.0.0"; }
+        { port = 80; addr = "0.0.0.0"; }
       ];
       extraConfig = ''
         ssl_reject_handshake on;
