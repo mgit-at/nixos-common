@@ -1,22 +1,5 @@
-{ ansible
-, python3
-, python3Packages
-}:
+{ callPackage }:
 
-let
-  extraPy = ps: with ps; [
-    hcloud
-    cryptography
-    pyopenssl
-  ];
-  py = python3.withPackages extraPy;
-in
-ansible.overrideAttrs (a: {
-  name = "${a.name}-MGIT";
-  # add missing hcloud dependency to ansible
-  propagatedBuildInputs = a.propagatedBuildInputs ++ (extraPy python3Packages);
-
-  preFixup = ''
-    makeWrapperArgs+=(--prefix PYTHONPATH : "${py}/${py.sitePackages}")
-  '';
-})
+(callPackage ./package.nix {}) // {
+  mkCustom = extraAnsiblePy: callPackage ./package.nix { inherit extraAnsiblePy; };
+}

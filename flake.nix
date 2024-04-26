@@ -118,7 +118,11 @@
           system = null;
         }).config.system.build.toplevel;
 
-        ansibleDevShell = pkgs.mkAnsibleDevShell {};
+        ansibleDevShell = pkgs.mkAnsibleDevShell { };
+
+        ansibleDevShellExtra = pkgs.mkAnsibleDevShell {
+          extraAnsiblePy = [ "jmespath" ];
+        };
       }
     );
 
