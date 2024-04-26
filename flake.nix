@@ -121,7 +121,7 @@
         ansibleDevShell = pkgs.mkAnsibleDevShell { };
 
         ansibleDevShellExtra = pkgs.mkAnsibleDevShell {
-          extraAnsiblePy = [ "jmespath" ];
+          extraAnsiblePy = [ "zstd" ];
         };
       }
     );

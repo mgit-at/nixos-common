@@ -9,6 +9,7 @@ let
     hcloud
     cryptography
     pyopenssl
+    jmespath
   ] ++ (builtins.map (name: ps.${name}) extraAnsiblePy);
 
   py = python3.withPackages extraPy;
