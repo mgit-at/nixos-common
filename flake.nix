@@ -51,7 +51,13 @@
 
         default = [
           ({
-            nix.registry.nixpkgs.to.path = nixpkgs.lib.mkForce patchPkgs;
+            nix.registry.nixpkgs.flake = nixpkgs.lib.mkForce inputs.nixpkgs;
+            nix.registry.nixpkgs.to = nixpkgs.lib.mkForce {
+              path = inputs.nixpkgs;
+              type = "path";
+              narHash = inputs.nixpkgs.narHash;
+              lastModified = inputs.nixpkgs.lastModified;
+            };
           })
           ansible-host
           base-tools
