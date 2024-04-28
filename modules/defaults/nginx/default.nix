@@ -27,8 +27,9 @@ import ../_with_unify.nix args config.services.nginx.enable
         return 404 "This domain is not configured on this server. Please contact your administrator if this seems wrong.";
       '';
     };
-
   };
+
+  systemd.services.nginx.restartTriggers = [ ./conf.d ./snippets ];
 
   environment.etc."nginx/conf.d".source = ./conf.d;
   environment.etc."nginx/snippets".source = ./snippets;
