@@ -26,4 +26,6 @@ with lib;
 
   # lock-out protection
   services.openssh.openFirewall = true;
+
+  services.fstrim.enable = true;
 }
