@@ -1,4 +1,4 @@
-{ options, lib, ... }@args:
+{ options, ... }@args:
 import ./defaults/_with_unify.nix args true
 {
   nix.settings = {

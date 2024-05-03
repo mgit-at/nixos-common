@@ -1,11 +1,11 @@
-inputs: mod: { pkgs, lib, ... }:
+inputs: mod: { ... }:
 {
   name = "mailcow";
 
   node.specialArgs.inputs = inputs;
 
   nodes = {
-    server = { lib, pkgs, ... }: {
+    server = { ... }: {
       imports = mod.default;
       services.mailcow.enable = true;
     };

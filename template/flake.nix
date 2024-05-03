@@ -8,7 +8,7 @@
   inputs.common.inputs.nixpkgs.follows = "nixpkgs";
   inputs.common.inputs.nix-unify.follows = "nix-unify";
 
-  outputs = { self, nixpkgs, nix-unify, common }@inputs: let
+  outputs = { self, nixpkgs, common }@inputs: let
     inherit (self) outputs;
     supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
     forAllSystems = f: nixpkgs.lib.genAttrs supportedSystems (system: f system);

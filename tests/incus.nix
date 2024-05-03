@@ -1,11 +1,11 @@
-inputs: mod: { pkgs, lib, ... }:
+inputs: mod: { ... }:
 {
   name = "incus-test-vm";
 
   node.specialArgs.inputs = inputs;
 
   nodes = {
-    server = { lib, pkgs, ... }: {
+    server = { ... }: {
       virtualisation.memorySize = 2048;
       virtualisation.diskSize = 4096;
 

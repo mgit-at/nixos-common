@@ -1,18 +1,18 @@
-inputs: mod: { pkgs, lib, ... }:
+inputs: mod: { ... }:
 {
   name = "prometheus-exporters";
 
   node.specialArgs.inputs = inputs;
 
   nodes = {
-    source = { lib, pkgs, ... }: {
+    source = { ... }: {
       imports = mod.default;
 
       # services.nginx.enable = true;
       services.prometheus.exporters.node.enable = true;
     };
 
-    monitoring = { lib, pkgs, ... }: {
+    monitoring = { pkgs, ... }: {
       environment.systemPackages = with pkgs; [
         curl
       ];

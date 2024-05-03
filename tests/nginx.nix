@@ -1,11 +1,11 @@
-inputs: mod: { pkgs, lib, ... }:
+inputs: mod: { ... }:
 {
   name = "nginx";
 
   node.specialArgs.inputs = inputs;
 
   nodes = {
-    server = { lib, pkgs, ... }: {
+    server = { pkgs, ... }: {
       imports = mod.default;
       services.nginx.enable = true;
 

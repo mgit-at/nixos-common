@@ -1,9 +1,8 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, ... }:
 
 with lib;
 let
   cfg = config.services.mailcow;
-  ini = pkgs.formats.ini {};
   json = pkgs.formats.json {};
 in
 {
