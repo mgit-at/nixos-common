@@ -10,6 +10,8 @@
   inputs.mgit-exporter.url = "github:mgit-at/prometheus-mgit-exporter/topic/nixos";
   inputs.mgit-exporter.inputs.nixpkgs.follows = "nixpkgs";
   inputs.mgit-exporter.inputs.patches4nixpkgs.follows = "patches4nixpkgs";
+  inputs.nix-index-database.url = "github:nix-community/nix-index-database";
+  inputs.nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
   outputs = { self, nix-unify, disko, patches4nixpkgs, mgit-exporter, ... }@inputs: with inputs.nixpkgs.lib; let
     supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
@@ -48,6 +50,7 @@
         ) (builtins.readDir ./modules);
       in modules // (with modules; rec {
         mgit-exporter = inputs.mgit-exporter.nixosModules.prometheus-mgit-exporter;
+        nix-index = inputs.nix-index-database.nixosModules.nix-index;
 
         default = [
           ({
@@ -68,6 +71,7 @@
           prometheus-exporter-gateway
           mailcow
           mgit-exporter
+          nix-index
         ];
         ansible_default = default ++ [
           nix-unify.nixosModules.ansible

@@ -28,4 +28,6 @@ with lib;
   services.openssh.openFirewall = true;
 
   services.fstrim.enable = true;
+
+  programs.command-not-found.enable = false;
 }
