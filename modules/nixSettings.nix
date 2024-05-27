@@ -1,4 +1,4 @@
-{ options, ... }@args:
+{ options, pkgs, ... }@args:
 import ./defaults/_with_unify.nix args true
 {
   nix.settings = {
@@ -9,6 +9,7 @@ import ./defaults/_with_unify.nix args true
   };
   nix.gc.automatic = true;
   nix.gc.options = "--delete-older-than 14d";
+  nix.package = pkgs.nixVersions.latest;
 }
 {
   nix-unify = {

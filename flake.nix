@@ -72,6 +72,7 @@
           mailcow
           mgit-exporter
           nix-index
+          nix-index-extra
         ];
         ansible_default = default ++ [
           nix-unify.nixosModules.ansible
