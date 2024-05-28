@@ -5,11 +5,11 @@
 
 stdenv.mkDerivation rec {
   pname = "tridentctl";
-  version = "22.07.0";
+  version = "24.02.0";
 
   src = fetchurl {
     url = "https://github.com/NetApp/trident/releases/download/v${version}/trident-installer-${version}.tar.gz";
-    hash = "sha256-5rPqSj+Ue0K5HDLfi5zAKH1nVqNkaI6h3bNcwkQznTc=";
+    hash = "sha256-4vnmdi6JZ+pJ9mpujz7ehl/fnbPI6ss+DVLq9a/HhnM=";
   };
 
   dontBuild = true;
