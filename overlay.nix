@@ -4,6 +4,7 @@ final: prev:
       packages = with final; packages ++ [
         (ansible-mgit.mkCustom extraAnsiblePy)
         age
+        pre-commit
       ];
 
       shellHook = ''
