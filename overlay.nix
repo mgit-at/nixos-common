@@ -5,5 +5,9 @@ final: prev:
         (ansible-mgit.mkCustom extraAnsiblePy)
         age
       ];
+
+      shellHook = ''
+        export PYTHONPATH=
+      '';
     });
   }
