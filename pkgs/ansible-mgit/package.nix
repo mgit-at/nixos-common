@@ -10,6 +10,7 @@ let
     cryptography
     pyopenssl
     jmespath
+    pyyaml
   ] ++ (builtins.map (name: ps.${name}) extraAnsiblePy);
 
   py = python3.withPackages extraPy;
