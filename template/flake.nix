@@ -38,7 +38,10 @@
         ];
       };
     in {
-      default = pkgs.mkAnsibleDevShell {};
+      default = pkgs.mkAnsibleDevShell {
+        # For extra packages not included yet uncomment the next line and add the packages needed in the list
+        # extraAnsiblePy = [ "xyz" ];
+      };
     });
   };
 }
