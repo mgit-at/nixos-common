@@ -11,4 +11,10 @@
     enable = true;
     lfs.enable = true;
   };
+
+  virtualisation.docker = {
+    enable = true;
+    # save resources
+    enableOnBoot = false;
+  };
 }
