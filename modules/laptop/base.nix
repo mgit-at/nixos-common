@@ -16,5 +16,7 @@
     enable = true;
     # save resources
     enableOnBoot = false;
+    # this causes problems on shutdown
+    liveRestore = false;
   };
 }
