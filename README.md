@@ -11,7 +11,7 @@ There are three available configs:
 - devops: base + Tools and integrations for deployments (ansible, etc.)
 - dev: base + Tools for development (go, etc.)
 
-# Installation (flakes)
+## Installation (flakes)
 
 This method uses the special args method for convinience
 
