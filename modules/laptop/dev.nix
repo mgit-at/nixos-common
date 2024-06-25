@@ -5,6 +5,7 @@
 
   environment.systemPackages = with pkgs; [
     nodejs
+    gops
     # todo: add everything
   ];
 }

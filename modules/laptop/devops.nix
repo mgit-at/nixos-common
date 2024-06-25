@@ -8,6 +8,17 @@
     ansible-vault-tools
     age
     pre-commit
+
+    k9s
+    kind
+    kn
+    krew
+    kubectl
+    kubernetes-helm
+    minio-client
+    websocat
+    rustscan
+    sniffglue
   ];
 
   programs.git.config = {

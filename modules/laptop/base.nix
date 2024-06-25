@@ -27,6 +27,14 @@
         # this causes problems on shutdown
         liveRestore = false;
       };
+
+      environment.systemPackages = with pkgs; [
+        ripgrep
+        fd
+        dua
+        yq-go
+        open-policy-agent # for evaluating opa policies, also for ansible
+      ];
     }
     (mkIf (config.mgit.skipNixCache) {
       nix.settings = {
