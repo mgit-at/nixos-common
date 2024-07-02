@@ -17,13 +17,20 @@
     supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
     forAllSystems = f: nixpkgs.lib.genAttrs supportedSystems (system: f system);
 
-    patchPkgs = patches4nixpkgs.patch inputs.nixpkgs [ mgit-exporter ];
+    patchPkgs = patches4nixpkgs.patch inputs.nixpkgs [ mgit-exporter self ];
     nixpkgs = patches4nixpkgs.eval patchPkgs;
   in {
     overlays.default = final: prev:
       (import ./overlay.nix final prev) // (inputs.mgit-exporter.overlays.default final prev);
 
     inherit nixpkgs;
+
+    patches4nixpkgs = nixpkgs: [
+      [
+        true
+        ./patches/prometheus-exporter-errors.patch
+      ]
+    ];
 
     packages = forAllSystems (system:
       let
