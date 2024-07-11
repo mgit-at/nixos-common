@@ -1,6 +1,4 @@
 { lib, stdenv, buildGoModule, fetchFromGitHub, nixosTests
-  # darwin
-  , CoreFoundation, IOKit
 }:
 
 buildGoModule rec {
@@ -19,8 +17,6 @@ buildGoModule rec {
 
   # FIXME: tests fail due to read-only nix store
   doCheck = false;
-
-  buildInputs = lib.optionals stdenv.isDarwin [ CoreFoundation IOKit ];
 
   excludedPackages = [ "docs/node-mixin" ];
 
