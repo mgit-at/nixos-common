@@ -1,0 +1,42 @@
+From 647e4c04ad7355e7c3f5381b7a1795b195f1f85f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Maciej=20Kr=C3=BCger?= <mkg20001@gmail.com>
+Date: Fri, 12 Jul 2024 18:38:38 +0200
+Subject: [PATCH] pwru: 1.0.6 -> 1.0.7, fix build
+
+---
+ pkgs/by-name/pw/pwru/package.nix | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/pkgs/by-name/pw/pwru/package.nix b/pkgs/by-name/pw/pwru/package.nix
+index 5f393ff9cee7..f4d601ca9654 100644
+--- a/pkgs/by-name/pw/pwru/package.nix
++++ b/pkgs/by-name/pw/pwru/package.nix
+@@ -7,13 +7,13 @@
+ 
+ buildGoModule rec {
+   pname = "pwru";
+-  version = "1.0.6";
++  version = "1.0.7";
+ 
+   src = fetchFromGitHub {
+     owner = "cilium";
+     repo = "pwru";
+     rev = "v${version}";
+-    hash = "sha256-8pXyzmzMCxOzwstzvzeZB2HBMeMzGMLZesTURZD3Rt8=";
++    hash = "sha256-BjiFuM06YDlPyB578p2hweBay+4z0bOn7fUoxSvrDY8=";
+   };
+ 
+   vendorHash = null;
+@@ -27,6 +27,9 @@ buildGoModule rec {
+       --replace "-static" ""
+   '';
+ 
++  # this breaks go generate as bpf does not support -fzero-call-used-regs=used-gpr
++  hardeningDisable = [ "zerocallusedregs" ];
++
+   preBuild = ''
+     TARGET_GOARCH="$GOARCH" GOOS= GOARCH= go generate
+   '';
+-- 
+2.45.1
+
