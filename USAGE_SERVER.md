@@ -37,12 +37,10 @@ Create the machine
     - Otherwise add the host with it's IPv4 under inventory/hosts.ini `my-host ansible_host=1.2.3.4`
 
 Deploy the machine
-- Run `NIXOS_SKIP=1 ansible-playbook playbooks/PLAYBOOK.yml`
-  - This will create, among others, `playbooks/_nix_ansible_/your-host.sh`, which can be used for subsequent deploys - if only the nixos side of things was changed - or debugging of issues with nix files through interactive output.
-  - Note that this will not deploy or install anything as `NIXOS_SKIP=1` was set
-- Now run `NIXOS_ANYWHERE=1 playbooks/_nix_ansible/your-host.sh`
+- Run `NIXOS_ANYWHERE=1 ansible-playbook playbooks/PLAYBOOK.yml`
   - This will start installing the machine using nixos-anywhere
-  - You can also use `NIXOS_ANYWHERE` with the playbooks, but this method is preferred in order to see the output
+  - This will create, among others, `playbooks/_nix_ansible_/your-host.sh`, which can be used for subsequent deploys - if only the nixos side of things was changed - or debugging of issues with nix files through interactive output.
+- For subsequent deploys via ansible simply omit `NIXOS_ANYWHERE=1`
 
 # Installing nix unify on a machine
 
