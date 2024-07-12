@@ -15,4 +15,5 @@ disko: { inputs, modulesPath, ... }:
   boot.initrd.kernelModules = [ "nvme" ];
 
   boot.tmp.cleanOnBoot = true;
+  boot.growPartition = true;
 }
