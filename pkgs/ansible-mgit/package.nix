@@ -19,7 +19,7 @@ let
 in
 ansible.overrideAttrs (a: {
   name = "${a.name}-MGIT";
-  # add missing hcloud dependency to ansible
+  # add missing dependencies to ansible
   propagatedBuildInputs = a.propagatedBuildInputs ++ (extraPy python3Packages);
 
   preFixup = ''
