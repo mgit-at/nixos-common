@@ -26,6 +26,7 @@ disko: { inputs, modulesPath, config, lib, ... }: with lib;
 
       boot.tmp.cleanOnBoot = true;
       boot.growPartition = true;
+      fileSystems."/".autoResize = true;
     }
     (mkIf (config.mgit.hcloud.auto-network != null) {
       networking.usePredictableInterfaceNames = false;
