@@ -39,7 +39,7 @@ disko: { inputs, modulesPath, config, lib, ... }: with lib;
           "${config.mgit.hcloud.auto-network}"
         ];
         routes = [
-          { routeConfig.Gateway = "fe80::1"; }
+          { Gateway = "fe80::1"; }
         ];
       };
     })
