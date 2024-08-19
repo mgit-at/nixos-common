@@ -30,10 +30,6 @@
         true
         ./patches/prometheus-exporter-errors.patch
       ]
-      [
-        (nixpkgs.lib.versionOlder nixpkgs.legacyPackages.x86_64-linux.pwru.version "1.0.7")
-        ./patches/pwru.patch
-      ]
     ];
 
     packages = forAllSystems (system:
