@@ -69,6 +69,7 @@
               lastModified = inputs.nixpkgs.lastModified;
             };
           })
+          apt
           ansible-host
           base-tools
           flake2channel
