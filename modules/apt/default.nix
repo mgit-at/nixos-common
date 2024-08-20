@@ -25,9 +25,53 @@ in
   };
 
   config = mkIf (cfg.enable) {
-    programs.apt.fakePackages = [ "libc6" ];
+    programs.apt.fakePackages = [
+      # our stuff
+      "apt"
+      "dpkg"
+
+      # see nix-ld defaults at
+      # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/programs/nix-ld.nix#L42
+      # zlib
+      "zlib1g"
+      # zstd
+      "libzstd1"
+      # stdenv.cc.cc
+      "libc6"
+      # curl
+      "curl"
+      # openssl
+      "openssl"
+      # attr
+      "libattr1"
+      # libssh
+      "libssh2-1"
+      # bzip2
+      "bzip2"
+      # libxml2
+      "libxml2"
+      # acl
+      "libacl1"
+      # libsodium
+      "libsodium23"
+      # util-linux
+      "util-linux"
+      # xz
+      "xz-utils"
+      # systemd
+      "libsystemd-shared"
+      "libsystemd0"
+
+      # other defaults
+      "sudo"
+      "mount"
+      "passwd"
+      "base-files"
+      "base-passwd"
+    ];
 
     environment.systemPackages = [
+      pkgs.dpkg
       apt
       pkgs.gnupg
       apt-mock-packages
