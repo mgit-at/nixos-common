@@ -14,7 +14,10 @@ in
     server = { pkgs, ... }: {
       imports = mod.default;
 
-      programs.apt.enable = true;
+      programs.apt = {
+        enable = true;
+        fakePackages = [ "fake-package" ];
+      };
 
       environment.etc."test.deb".source = deb;
     };
@@ -22,8 +25,10 @@ in
 
   testScript = ''
     start_all()
-    server.wait_for_unit("ethtool-setringmax")
+    server.wait_for_unit("apt-setup")
     server.succeed("apt install /etc/test.deb -y")
     server.succeed("test -e /usr/share/doc/gcc-12-base/copyright")
+    server.succeed("apt-cache show fake-package")
+    server.succeed("apt remove fake-package -y")
   '';
 }
