@@ -30,5 +30,9 @@ in
     server.succeed("test -e /usr/share/doc/gcc-12-base/copyright")
     server.succeed("apt-cache show fake-package")
     server.succeed("apt remove fake-package -y")
+    server.fail("apt-cache show fake-package")
+    server.fail("apt-cache show fake-package-2")
+    server.succeed("apt-mock-packages fake-package-2")
+    server.succeed("apt-cache show fake-package-2")
   '';
 }

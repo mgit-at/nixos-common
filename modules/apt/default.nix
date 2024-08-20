@@ -6,12 +6,8 @@ let
   cfg = config.programs.apt;
   apt = pkgs.callPackage ./apt-patched.nix {};
 
-  mock-packages = pkgs.substituteAll {
-    src = ./mock-packages.sh;
-    isExecutable = true;
-
-    bash = pkgs.bash;
-  };
+  apt-mock-packages = pkgs.writeShellScriptBin "apt-mock-packages"
+    (builtins.readFile ./apt-mock-packages.sh);
 in
 {
   options.programs.apt = {
@@ -30,6 +26,7 @@ in
     environment.systemPackages = [
       apt
       pkgs.gnupg
+      apt-mock-packages
     ];
 
     systemd.services.apt-setup = {
@@ -55,7 +52,7 @@ in
         fi
         mkdir -p /var/lib/dpkg
         mkdir -p /usr/share/keyrings
-        ${mock-packages} ${escapeShellArgs cfg.fakePackages}
+        ${apt-mock-packages}/bin/apt-mock-packages ${escapeShellArgs cfg.fakePackages}
       '';
       wantedBy = [ "multi-user.target" "default.target" ];
       serviceConfig = {
