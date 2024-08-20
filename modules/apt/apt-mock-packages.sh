@@ -9,7 +9,7 @@ Status: install ok installed
 Priority: optional
 Maintainer: Dummy <dummy@localhost>
 Architecture: all
-Version: 0
+Version: 9000
 Description: Dummy-package to resolve dependencies
 "
 }

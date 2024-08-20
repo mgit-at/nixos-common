@@ -25,6 +25,8 @@ in
   };
 
   config = mkIf (cfg.enable) {
+    programs.apt.fakePackages = [ "libc6" ];
+
     environment.systemPackages = [
       apt
       pkgs.gnupg
