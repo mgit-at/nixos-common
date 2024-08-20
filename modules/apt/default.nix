@@ -19,7 +19,9 @@ in
       type = with types; listOf str;
     };
 
-    nixLDPackages = options.programs.nix-ld.libraries;
+    nixLDPackages = if options.programs ? "nix-ld"
+      then options.programs.nix-ld.libraries
+      else mkOption { type = types.listOf types.str; default = []; };
   };
 
   config = mkIf (cfg.enable) {
