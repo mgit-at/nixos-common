@@ -26,6 +26,7 @@ in
   testScript = ''
     start_all()
     server.wait_for_unit("apt-setup")
+    server.succeed("sleep 2s")
     server.succeed("apt install /etc/test.deb -y")
     server.succeed("test -e /usr/share/doc/gcc-12-base/copyright")
     server.succeed("apt-cache show fake-package")
