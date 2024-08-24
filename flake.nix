@@ -30,6 +30,10 @@
         true
         ./patches/prometheus-exporter-errors.patch
       ]
+      [
+        (!(nixpkgs.legacyPackages.x86_64-linux.python3Packages ? "apt"))
+        ./patches/python-apt.patch
+      ]
     ];
 
     packages = forAllSystems (system:

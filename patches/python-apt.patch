@@ -1,0 +1,79 @@
+From ec0b212f625d223acd4f4d8edba538bac5e8f8b8 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Maciej=20Kr=C3=BCger?= <mkg20001@gmail.com>
+Date: Sat, 24 Aug 2024 16:39:10 +0200
+Subject: [PATCH] python3.apt: init at 2.8.0
+
+---
+ .../python-modules/apt/default.nix            | 44 +++++++++++++++++++
+ pkgs/top-level/python-packages.nix            |  4 ++
+ 2 files changed, 48 insertions(+)
+ create mode 100644 pkgs/development/python-modules/apt/default.nix
+
+diff --git a/pkgs/development/python-modules/apt/default.nix b/pkgs/development/python-modules/apt/default.nix
+new file mode 100644
+index 000000000000..d4d51af3d593
+--- /dev/null
++++ b/pkgs/development/python-modules/apt/default.nix
+@@ -0,0 +1,44 @@
++{
++  lib,
++  buildPythonPackage,
++  setuptools,
++  wheel,
++  fetchFromGitLab,
++  apt,
++  dpkg,
++}:
++
++buildPythonPackage rec {
++  pname = "apt";
++  version = "2.8.0";
++  pyproject = true;
++
++  src = fetchFromGitLab {
++    domain = "salsa.debian.org";
++    owner = "apt-team";
++    repo = "python-apt";
++    rev = version;
++    hash = "sha256-7l7rgyJ28iQuL6ShF/KYwL/kAXpLPTqnUIavVxNF+wU=";
++  };
++
++  build-system = [
++    setuptools
++    wheel
++  ];
++
++  buildInputs = [
++    apt
++  ];
++
++  nativeBuildInputs = [
++    # dpkg-parsechangelog for setup.py
++    dpkg
++  ];
++
++  meta = {
++    description = "apt module for python";
++    homepage = "https://salsa.debian.org/apt-team/python-apt.git";
++    license = lib.licenses.gpl2Only;
++    maintainers = with lib.maintainers; [ mkg20001 ];
++  };
++}
+diff --git a/pkgs/top-level/python-packages.nix b/pkgs/top-level/python-packages.nix
+index a826cd6129c6..5cfbe4612672 100644
+--- a/pkgs/top-level/python-packages.nix
++++ b/pkgs/top-level/python-packages.nix
+@@ -719,6 +719,10 @@ self: super: with self; {
+ 
+   apsw = callPackage ../development/python-modules/apsw { };
+ 
++  apt = callPackage ../development/python-modules/apt {
++     apt = super.pkgs.apt;
++  };
++
+   apycula = callPackage ../development/python-modules/apycula { };
+ 
+   aqipy-atmotech = callPackage ../development/python-modules/aqipy-atmotech { };
+-- 
+2.45.2
+
