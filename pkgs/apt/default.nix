@@ -1,9 +1,9 @@
 {
-  apt,
+  apt_vanilla,
   dpkg,
 }:
 
-apt.overrideAttrs {
+apt_vanilla.overrideAttrs {
   postInstall = ''
     ln -s ${dpkg}/bin/dpkg $out/bin/dpkg
 

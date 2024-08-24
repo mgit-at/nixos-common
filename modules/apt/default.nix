@@ -4,7 +4,6 @@ with lib;
 
 let
   cfg = config.programs.apt;
-  apt_ = pkgs.callPackage ./apt-patched.nix {};
   apt = cfg.package;
 
   apt-mock-packages = pkgs.writeShellScriptBin "apt-mock-packages"
@@ -24,7 +23,7 @@ in
       then options.programs.nix-ld.libraries
       else mkOption { type = types.listOf types.str; default = []; };
 
-    package = lib.mkPackageOption ({ apt = apt_; }) "apt" { };
+    package = lib.mkPackageOption pkgs "apt" { };
   };
 
   config = mkIf (cfg.enable) {
