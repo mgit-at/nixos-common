@@ -28,6 +28,7 @@ buildFHSUserEnv {
     # include no more than this
     # crt1.o is already taken care of by buildFHSEnv.nix
     gcc_multi.out
+
     binutils
     pkg-config
     python3
@@ -37,6 +38,8 @@ buildFHSUserEnv {
     which
     python3
     patch
+
+    # debugging
     iputils
     host
   ];
