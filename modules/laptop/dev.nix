@@ -3,6 +3,8 @@
     ./base.nix
   ];
 
+  environment.shellAliases."bazel" = "bazelisk-env";
+
   environment.systemPackages = with pkgs; [
     nodejs
     gops
