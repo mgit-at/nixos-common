@@ -170,6 +170,17 @@
           })
         ];
       };
+
+      bazelisk = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs.inputs = inputs;
+        modules = self.nixosModules.default ++ [
+          (import ./os/bazelisk/configuration.nix)
+          ({
+            nixpkgs.overlays = [ self.overlays.default ];
+          })
+        ];
+      };
     };
 
     templates.default = {
