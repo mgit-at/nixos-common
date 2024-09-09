@@ -6,6 +6,7 @@
   environment.systemPackages = with pkgs; [
     nodejs
     gops
+    bazelisk-env
     # todo: add everything
   ];
 }
