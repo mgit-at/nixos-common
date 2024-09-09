@@ -47,6 +47,8 @@ buildFHSUserEnv {
   # everything that we need both 64bit and 32bit versions of
   multiPkgs = pkgs: with pkgs; [
     zlib
+    # for python3 build
+    libxcrypt-legacy
   ];
 
   profile = ''
