@@ -35,13 +35,19 @@ buildFHSUserEnv {
     # old approach: hack arround the wrapper with sed, doesn't really work
     # (pkgs.callPackage ./gcc_multi_patched.nix {})
 
-    (gcc-unwrapped.override {
-      # need to patch in -L/usr/lib -L/usr/lib32 (for libs) -B/usr/lib -B/usr/lib32 (for crt1.o, etc.)
-      # this does the trick (disables the patches that remove it by ddefault)
-      noSysDirs = false;
-      # theoretically the same could also be achived by wrapping gcc
-      # but this is too complex (see current pkgs/build-support/cc-wrapper)
-    }).out # gcc.cc. provides gcc
+    # need to patch in -L/usr/lib -L/usr/lib32 (for libs) -B/usr/lib -B/usr/lib32 (for crt1.o, etc.)
+    # this does the trick (disables the patches that remove it by ddefault)
+    # theoretically the same could also be achived by wrapping gcc
+    # but this is too complex (see current pkgs/build-support/cc-wrapper)
+    (let
+      gccVanilla = gcc14.cc;
+      patches = (gccVanilla.override { noSysDirs = false; }).patches;
+    in
+      gccVanilla.overrideAttrs {
+        # we need to override just the patches, as noSysDirs=false
+        # disables some compile-fixing magic
+        inherit patches;
+      })
     binutils-unwrapped.out # provides ld
 
     pkg-config
