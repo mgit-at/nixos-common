@@ -49,6 +49,17 @@ buildFHSUserEnv {
         inherit patches;
       })
     binutils-unwrapped.out # provides ld
+    # we don't want to _also_ rebuilt binutils-unwrapped so we just drop in an ld wrapper
+    # (this is way simpler than messing with wrapping gcc)
+    (hiPrio (writeShellScriptBin "ld" ''
+      set -euo pipefail
+
+      # NOTE: building pure 32bit is broken (would need to use expand-params-response and check for 32bit flag).
+      # but i don't think we need it.
+      flags=("-dynamic-linker=/lib64/ld-linux-x86-64.so.2")
+
+      ${binutils-unwrapped}/bin/ld "''${flags[@]}" "$@" "''${flags[@]}"
+    ''))
 
     pkg-config
     python3
@@ -63,6 +74,19 @@ buildFHSUserEnv {
     # debugging
     iputils
     host
+    (writeShellScriptBin "compile-hello-world" ''
+      set -x
+
+      gcc ${writeText "hello-world.c" ''
+        #include<stdio.h>
+
+        int main() {
+          printf("Hello World from Bazel!\n");
+        }
+      ''} -o /tmp/hello-world
+
+      ldd /tmp/hello-world
+    '')
   ];
 
   # everything that we need both 64bit and 32bit versions of
