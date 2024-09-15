@@ -25,9 +25,24 @@ buildFHSUserEnv {
   # NOTE: since /run/current-system is inaccessible
   # EVERY required tool must be specified here
   targetPkgs = pkgs: with pkgs; [
-    # include no more than this
+    # include no more than out for gcc and binutils
     # crt1.o is already taken care of by buildFHSEnv.nix
-    (pkgs.callPackage ./gcc_multi_patched.nix {})
+    # it might break things otherwise
+
+    # old approach: this doesn't work as it makes executables use nix ld
+    # gcc_multi.out
+
+    # old approach: hack arround the wrapper with sed, doesn't really work
+    # (pkgs.callPackage ./gcc_multi_patched.nix {})
+
+    (gcc-unwrapped.override {
+      # need to patch in -L/usr/lib -L/usr/lib32 (for libs) -B/usr/lib -B/usr/lib32 (for crt1.o, etc.)
+      # this does the trick (disables the patches that remove it by ddefault)
+      noSysDirs = false;
+      # theoretically the same could also be achived by wrapping gcc
+      # but this is too complex (see current pkgs/build-support/cc-wrapper)
+    }).out # gcc.cc. provides gcc
+    binutils-unwrapped.out # provides ld
 
     pkg-config
     python3
