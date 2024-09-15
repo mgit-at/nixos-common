@@ -1,6 +1,7 @@
 {
   gcc_multi,
   stdenv,
+  bintools-unwrapped,
 }:
 
 stdenv.mkDerivation {
@@ -19,6 +20,8 @@ stdenv.mkDerivation {
     find bin -type f -exec sed -i \
       -e 's,expandResponseParams,params=("$@");true,g' \
       {} +
+    rm bin/ld
+    ln -s ${bintools-unwrapped}/bin/ld bin/ld
   '';
 
   installPhase = ''

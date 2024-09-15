@@ -29,7 +29,6 @@ buildFHSUserEnv {
     # crt1.o is already taken care of by buildFHSEnv.nix
     (pkgs.callPackage ./gcc_multi_patched.nix {})
 
-    binutils
     pkg-config
     python3
     coreutils-full # is not multi since takes forever to build and no cache available
