@@ -27,7 +27,7 @@ buildFHSUserEnv {
   targetPkgs = pkgs: with pkgs; [
     # include no more than this
     # crt1.o is already taken care of by buildFHSEnv.nix
-    gcc_multi.out
+    (pkgs.callPackage ./gcc_multi_patched.nix {})
 
     binutils
     pkg-config
@@ -38,6 +38,7 @@ buildFHSUserEnv {
     which
     python3
     patch
+    curl
 
     # debugging
     iputils
