@@ -51,15 +51,19 @@ buildFHSUserEnv {
     binutils-unwrapped.out # provides ld
     # we don't want to _also_ rebuilt binutils-unwrapped so we just drop in an ld wrapper
     # (this is way simpler than messing with wrapping gcc)
-    (hiPrio (writeShellScriptBin "ld" ''
-      set -euo pipefail
+    (hiPrio (symlinkJoin {
+      name = "ld-override";
 
-      # NOTE: building pure 32bit is broken (would need to use expand-params-response and check for 32bit flag).
-      # but i don't think we need it.
-      flags=("-dynamic-linker=/lib64/ld-linux-x86-64.so.2")
+      paths = map (suffix: writeShellScriptBin "ld${suffix}" ''
+        set -euo pipefail
 
-      ${binutils-unwrapped}/bin/ld "''${flags[@]}" "$@" "''${flags[@]}"
-    ''))
+        # NOTE: building pure 32bit is broken (would need to use expand-params-response and check for 32bit flag).
+        # but i don't think we need it.
+        flags=("-dynamic-linker=/lib64/ld-linux-x86-64.so.2")
+
+        ${binutils-unwrapped}/bin/ld${suffix} "''${flags[@]}" "$@" "''${flags[@]}"
+      '') [ "" ".gold" ".bfd" ".so" ];
+    }))
 
     pkg-config
     python3
@@ -99,6 +103,7 @@ buildFHSUserEnv {
   profile = ''
     export BAZELISK_ENV=1
     export CC=$(which gcc)
+    export LD=$(which ld)
 
     CMD=bazelisk
 
