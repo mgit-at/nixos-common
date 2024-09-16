@@ -17,6 +17,8 @@ buildFHSUserEnv {
     "--ro-bind" "/run/systemd" "/run/systemd"
     # several things, including dns
     "--ro-bind" "/run/nscd" "/run/nscd"
+    # tmpdirs, screen, e,tc
+    "--ro-bind" "/run/user" "/run/user"
   ];
 
   # for go build
