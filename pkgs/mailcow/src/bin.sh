@@ -1,5 +1,7 @@
 #!/usr/bin/env ysh
 
+shopt --unset no_exported
+
 set -euo pipefail
 
 export PATH=@path@
