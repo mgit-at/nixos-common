@@ -138,6 +138,7 @@
         }).config.system.build.toplevel;
 
         ansibleDevShell = pkgs.mkAnsibleDevShell { };
+        ansibleDevShellVersioned = pkgs.mkAnsibleDevShell { ansible = pkgs.ansible_2_16; };
 
         ansibleDevShellExtra = pkgs.mkAnsibleDevShell {
           extraAnsiblePy = [ "zstd" ];

@@ -1,5 +1,5 @@
-{ callPackage }:
+{ callPackage, ansible }:
 
 (callPackage ./package.nix {}) // {
-  mkCustom = extraAnsiblePy: callPackage ./package.nix { inherit extraAnsiblePy; };
+  mkCustom = { extraAnsiblePy, ansible ? ansible }: callPackage ./package.nix { inherit extraAnsiblePy ansible; };
 }
