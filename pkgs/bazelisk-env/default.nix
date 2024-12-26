@@ -1,8 +1,8 @@
 {
-  buildFHSUserEnv,
+  buildFHSEnv,
 }:
 
-buildFHSUserEnv {
+buildFHSEnv {
   name = "bazelisk-env";
   extraOutputsToInstall = ["include" "dev"]; # TODO: make it saner?
 

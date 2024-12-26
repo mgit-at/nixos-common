@@ -24,7 +24,7 @@ inputs: mod: { ... }:
   testScript = ''
     start_all()
     server.succeed("incus admin init --minimal")
-    server.succeed("incus image import ${inputs.self.nixosConfigurations.incus.config.system.build.metadata}/tarball/nixos-system-x86_64-linux.tar.xz ${inputs.self.nixosConfigurations.incus.config.system.build.squashfs}/*.squashfs --alias incus-test")
+    server.succeed("incus image import ${inputs.self.nixosConfigurations.incus.config.system.build.metadata}/tarball/*.tar.xz ${inputs.self.nixosConfigurations.incus.config.system.build.squashfs}/*.squashfs --alias incus-test")
     server.succeed("incus launch incus-test test-vm -c security.nesting=true")
     server.wait_until_succeeds("incus exec test-vm true")
     server.wait_until_succeeds("incus -f csv -c 4 ls | grep 10")
