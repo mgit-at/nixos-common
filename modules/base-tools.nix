@@ -12,7 +12,7 @@
 
   environment.systemPackages = with pkgs; [
     curl
-    dstat
+    dool # dstat has been deprecated, use dool instead
     lsof
     ethtool
     gawk
