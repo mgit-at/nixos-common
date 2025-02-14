@@ -1,12 +1,10 @@
 #!/usr/bin/env ysh
 
-shopt --unset no_exported
-
 set -euo pipefail
 
-export PATH=@path@
+setglobal ENV.PATH = "@path"
 
-export MAILCOW_DIR="/srv/mailcow"
+setglobal ENV.MAILCOW_DIR = "/srv/mailcow"
 
 die() {
   echo "ERROR: $*" >&2
