@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-setglobal ENV.PATH = "@path"
+setglobal ENV.PATH = "@path@"
 
 setglobal ENV.MAILCOW_DIR = "/srv/mailcow"
 
