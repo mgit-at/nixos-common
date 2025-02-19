@@ -30,10 +30,6 @@
         true
         ./patches/prometheus-exporter-errors.patch
       ]
-      [
-        (!(nixpkgs ? "ansible_2_18"))
-        ./patches/ansible-2-16.patch
-      ]
     ];
 
     packages = forAllSystems (system:
