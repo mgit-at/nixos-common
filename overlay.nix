@@ -4,11 +4,11 @@ final: prev:
     mkAnsibleDevShell = { ansible ? prev.ansible, extraAnsiblePy ? [], packages ? [], shellHook ? "", ... }@args: final.mkShell (args // {
       LOCALE_ARCHIVE = "${final.glibcLocales}/lib/locale/locale-archive";
 
-      packages = with final; packages ++ [
+      packages = with final; [
         (ansible-mgit.mkCustom { inherit extraAnsiblePy ansible; })
         age
         pre-commit
-      ];
+      ] ++ packages;
 
       shellHook = ''
         export PYTHONPATH=
