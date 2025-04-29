@@ -15,6 +15,7 @@
 , gnused
 , iptables-nftables-compat
 , lib
+, findutils
 }:
 
 let
@@ -35,6 +36,7 @@ let
     gnugrep
     gnused
     iptables-nftables-compat
+    findutils
   ];
   path = lib.makeBinPath pathPkgs;
 in
