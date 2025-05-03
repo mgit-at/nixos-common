@@ -14,7 +14,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-ACaUD16GQQeDYb5JXBE56JjV7bidztPFsZpaSLrFP/U=";
   };
 
-  cargoHash = "sha256-A2xAjyQlvsuSiHAlFkVeVNpIshLbiKfwqX5TGCuyGRc=";
+  cargoHash = "sha256-Zf+tL6i7QDChJIpNAfVp6awYtMOvNwpYZZvp3exJRFk=";
 
   meta = with lib; {
     description = "Determine if you need to reboot your NixOS machine";

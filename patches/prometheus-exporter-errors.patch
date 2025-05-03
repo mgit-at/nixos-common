@@ -1,8 +1,8 @@
 diff --git a/nixos/modules/services/monitoring/prometheus/exporters.nix b/nixos/modules/services/monitoring/prometheus/exporters.nix
-index ef92e6469bca..02a49807beba 100644
+index 2adc59eefbef..a2051c465aec 100644
 --- a/nixos/modules/services/monitoring/prometheus/exporters.nix
 +++ b/nixos/modules/services/monitoring/prometheus/exporters.nix
-@@ -151,14 +151,6 @@ in
+@@ -388,14 +388,6 @@ in
        options = (mkSubModules);
        imports = [
          ../../../misc/assertions.nix
