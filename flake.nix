@@ -30,6 +30,18 @@
         true
         ./patches/prometheus-exporter-errors.patch
       ]
+      [
+        (!(nixpkgs ? "ansible_2_19"))
+        ./patches/ansible/0001-ansible_2_18-add-fix-version.patch
+      ]
+      [
+        (!(nixpkgs ? "ansible_2_19"))
+        ./patches/ansible/0002-ansible-add-note-about-pinned-package.patch
+      ]
+      [
+        (!(nixpkgs ? "ansible_2_19"))
+        ./patches/ansible/0003-ansible_2_-16-17-fix-build.patch
+      ]
     ];
 
     packages = forAllSystems (system:
