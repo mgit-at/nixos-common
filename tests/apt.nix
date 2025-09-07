@@ -1,8 +1,8 @@
 inputs: mod: { pkgs, ... }:
 let
   deb = pkgs.fetchurl {
-    url = "http://archive.ubuntu.com/ubuntu/pool/main/g/gcc-12/gcc-12-base_12.3.0-1ubuntu1~22.04_amd64.deb";
-    hash = "sha256-gKH13wl685ePffKAgAbKdxl4ZeXrepI3Eq7mh256FMs=";
+    url = "https://archive.ubuntu.com/ubuntu/pool/main/g/gcc-12/gcc-12-base_12-20220319-1ubuntu1_amd64.deb";
+    hash = "sha256-N5kKdo7LG0DOh8Evt8eZSHe7Ela94obI6b9dS1GhfKk=";
   };
 in
 {
