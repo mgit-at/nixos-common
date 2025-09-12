@@ -16,6 +16,7 @@
 , iptables-nftables-compat
 , lib
 , findutils
+, jq
 }:
 
 let
@@ -37,6 +38,7 @@ let
     gnused
     iptables-nftables-compat
     findutils
+    jq
   ];
   path = lib.makeBinPath pathPkgs;
 in
