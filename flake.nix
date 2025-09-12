@@ -30,18 +30,6 @@
         true
         ./patches/prometheus-exporter-errors.patch
       ]
-      [
-        (!(nixpkgs ? "ansible_2_19"))
-        ./patches/ansible/0001-ansible_2_18-add-fix-version.patch
-      ]
-      [
-        (!(nixpkgs ? "ansible_2_19"))
-        ./patches/ansible/0002-ansible-add-note-about-pinned-package.patch
-      ]
-      [
-        (!(nixpkgs ? "ansible_2_19"))
-        ./patches/ansible/0003-ansible_2_-16-17-fix-build.patch
-      ]
     ];
 
     packages = forAllSystems (system:
@@ -150,7 +138,7 @@
         }).config.system.build.toplevel;
 
         ansibleDevShell = pkgs.mkAnsibleDevShell { };
-        ansibleDevShellVersioned = pkgs.mkAnsibleDevShell { ansible = pkgs.ansible_2_16; };
+        ansibleDevShellVersioned = pkgs.mkAnsibleDevShell { ansible = pkgs.ansible_2_18; };
 
         ansibleDevShellExtra = pkgs.mkAnsibleDevShell {
           extraAnsiblePy = [ "zstd" ];
