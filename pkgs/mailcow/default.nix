@@ -18,6 +18,7 @@
 , findutils
 , jq
 , iproute2
+, iputils
 }:
 
 let
@@ -41,6 +42,7 @@ let
     findutils
     jq
     iproute2
+    iputils
   ];
   path = lib.makeBinPath pathPkgs;
 in
