@@ -17,6 +17,7 @@
 , lib
 , findutils
 , jq
+, iproute2
 }:
 
 let
