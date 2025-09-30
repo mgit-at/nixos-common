@@ -39,6 +39,7 @@ let
     iptables-nftables-compat
     findutils
     jq
+    iproute2
   ];
   path = lib.makeBinPath pathPkgs;
 in
