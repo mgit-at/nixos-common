@@ -1,9 +1,9 @@
 diff --git a/nixos/modules/services/monitoring/prometheus/exporters.nix b/nixos/modules/services/monitoring/prometheus/exporters.nix
-index 2adc59eefbef..a2051c465aec 100644
+index c387bf06c8f6..e127a3103fc1 100644
 --- a/nixos/modules/services/monitoring/prometheus/exporters.nix
 +++ b/nixos/modules/services/monitoring/prometheus/exporters.nix
-@@ -388,14 +388,6 @@ in
-       options = (mkSubModules);
+@@ -392,14 +392,6 @@ in
+       options = mkSubModules;
        imports = [
          ../../../misc/assertions.nix
 -        (lib.mkRenamedOptionModule [ "unifi-poller" ] [ "unpoller" ])
