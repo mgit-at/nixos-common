@@ -21,7 +21,7 @@ disko: { inputs, modulesPath, config, lib, ... }: with lib;
   config = mkMerge [
     {
       # boot.loader.grub.device = "/dev/sda";
-      boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "xen_blkfront" "vmw_pvscsi" ];
+      boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "xen_blkfront" ];
       boot.initrd.kernelModules = [ "nvme" ];
 
       boot.tmp.cleanOnBoot = true;
